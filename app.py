@@ -1,5 +1,5 @@
 import os
-
+# from config import get_secret
 from flask import (Flask, redirect, render_template, request,
                    send_from_directory, url_for)
 
@@ -22,7 +22,9 @@ def hello():
 
    if name:
        print('Request for hello page received with name=%s' % name)
-       return render_template('hello.html', name = name)
+       print(type(name))
+    #    secret = get_secret("demoSECRET")
+       return render_template('hello.html', name = name, secret="Some secret")
    else:
        print('Request for hello page received with no name or blank name -- redirecting')
        return redirect(url_for('index'))
