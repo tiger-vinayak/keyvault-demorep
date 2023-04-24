@@ -1,0 +1,42 @@
+name: Build and deploy a container to an Azure Web App
+
+env:
+  AZURE_WEBAPP_NAME: githubpoctestapp  # set this to the name of your Azure Web App
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Docker Login
+        uses: docker/login-action@v2.1.0
+        with:
+          registry: ${{ secrets.LOGIN_SERVER }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      # Build and Push the image to the ACR
+      - name: Build and Push ACR
+        uses: docker/build-push-action@v4.0.0
+        with:
+          file: Dockerfile
+          push: true
+          tags: ${{ secrets.LOGIN_SERVER }}/githubactionsrepo:keyvaultdemo
+          
+      - name: Deploy to Azure App Service
+        uses: Azure/webapps-deploy@v2.2.6
+        with:
+          app-name: githubpoctestapp
+          publish-profile: ${{ secrets.APP_PUBLISH_PROFILE }}
+          images: ${{ secrets.LOGIN_SERVER }}/githubactionsrepo:keyvaultdemo
+          resource-group-name: 'Test-rg'
