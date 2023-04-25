@@ -72,7 +72,7 @@ def login():
     print("Test_key_Vault:\t",test_check_get_secret)
     root_url = request.url_root
     # redirect_uri = f'{root_url}{rediredt_end_uri}'
-    redirect_uri = "https://githubpoctestapp.azurewebsites.net/loginredirect"
+    redirect_uri = get_secret("REDIRECTuri")
 #     if redirect_uri.find('localhost'):
 #         redirect_uri_updated  = redirect_uri.replace("/loginredirect",":80/loginredirect")
 
@@ -103,7 +103,7 @@ def login_callback():
     code = request.args.get('code')
     root_url = request.url_root
     # redirect_uri = f'{root_url}{rediredt_end_uri}'
-    redirect_uri = "https://githubpoctestapp.azurewebsites.net/loginredirect"
+    redirect_uri = get_secret("REDIRECTuri")
 #     if redirect_uri.find('localhost'):
 #         redirect_uri_updated  = redirect_uri.replace("/loginredirect",":80/loginredirect")
 
