@@ -72,18 +72,18 @@ def login():
     print("Test_key_Vault:\t",test_check_get_secret)
     root_url = request.url_root
     redirect_uri = f'{root_url}{rediredt_end_uri}'
-    if redirect_uri.find('localhost'):
-        redirect_uri_updated  = redirect_uri.replace("/loginredirect",":80/loginredirect")
+#     if redirect_uri.find('localhost'):
+#         redirect_uri_updated  = redirect_uri.replace("/loginredirect",":80/loginredirect")
 
-    else:
-        redirect_uri_updated = redirect_uri
-    # Redirect user to Microsoft login page
-    print("Redirect URI in Login", redirect_uri_updated)
+#     else:
+#         redirect_uri_updated = redirect_uri
+#     # Redirect user to Microsoft login page
+    print("Redirect URI in Login", redirect_uri)
     auth_url = (
                     f"https://login.microsoftonline.com/"
                     f"{tenant_id}/oauth2/v2.0/authorize?"
                     f"client_id={client_id}"
-                    f"&redirect_uri={redirect_uri_updated}"
+                    f"&redirect_uri={redirect_uri}"
                     f"&response_type=code"
                     f"&scope={' '.join(scope)}"
                     f"&response_mode=query"
@@ -102,20 +102,20 @@ def login_callback():
     code = request.args.get('code')
     root_url = request.url_root
     redirect_uri = f'{root_url}{rediredt_end_uri}'
-    if redirect_uri.find('localhost'):
-        redirect_uri_updated  = redirect_uri.replace("/loginredirect",":80/loginredirect")
+#     if redirect_uri.find('localhost'):
+#         redirect_uri_updated  = redirect_uri.replace("/loginredirect",":80/loginredirect")
 
-    else:
-        redirect_uri_updated = redirect_uri
+#     else:
+#         redirect_uri_updated = redirect_uri
 
-    print("Redirect URI in Callback", redirect_uri_updated)
+    print("Redirect URI in Callback", redirect_uri)
     if code:
         token_url = f'https://login.microsoftonline.com/{tenant_id}/oauth2/v2.0/token'
         token_payload = {
             'client_id': client_id,
             'client_secret': client_secret,
             'code': code,
-            'redirect_uri': redirect_uri_updated,
+            'redirect_uri': redirect_uri,
             'grant_type': 'authorization_code',
             'scope': ' '.join(scope)
         }
