@@ -9,4 +9,4 @@ def get_secret(name):
     secret = secret_client.get_secret(name)
     print(secret.name)
     print(secret.value)
-    return secret.name
+    return secret.value
