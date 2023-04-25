@@ -78,6 +78,7 @@ def login():
     else:
         redirect_uri_updated = redirect_uri
     # Redirect user to Microsoft login page
+    print("Redirect URI in Login", redirect_uri_updated)
     auth_url = (
                     f"https://login.microsoftonline.com/"
                     f"{tenant_id}/oauth2/v2.0/authorize?"
@@ -107,6 +108,7 @@ def login_callback():
     else:
         redirect_uri_updated = redirect_uri
 
+    print("Redirect URI in Callback", redirect_uri_updated)
     if code:
         token_url = f'https://login.microsoftonline.com/{tenant_id}/oauth2/v2.0/token'
         token_payload = {
