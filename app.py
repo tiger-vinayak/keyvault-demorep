@@ -2,7 +2,6 @@ import os
 from config import get_secret
 from flask import (Flask, redirect, render_template, request,
                    send_from_directory, url_for)
-from dotenv import load_dotenv
 import jwt
 import hmac
 from azure.identity import DefaultAzureCredential
