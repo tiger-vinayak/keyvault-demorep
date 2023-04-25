@@ -23,7 +23,8 @@ def hello():
    if name:
        print('Request for hello page received with name=%s' % name)
        print(type(name))
-       secret = get_secret("demoSECRET")
+#        secret = get_secret("demoSECRET")
+       secret = "Some Secret"
        return render_template('hello.html', name = name, secret=secret)
    else:
        print('Request for hello page received with no name or blank name -- redirecting')
